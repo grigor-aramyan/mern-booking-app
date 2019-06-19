@@ -1,0 +1,15 @@
+{
+  "name": "mern_booking_app",
+  "version": "1.0.0",
+  "description": "Room/house booking app implemented in MERN stack!",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grigor-aramyan/mern-booking-app.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Grigori Aramyan",
+  "license": "ISC"
+}
