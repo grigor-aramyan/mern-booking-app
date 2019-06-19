@@ -8,8 +8,30 @@
     "url": "https://github.com/grigor-aramyan/mern-booking-app.git"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev-server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
+    "dev-bundle": "webpack -wd",
+    "dev-start": "concurrently \"npm run dev-bundle\" \"npm run dev-server\""
   },
   "author": "Grigori Aramyan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.34.0",
+    "webpack-cli": "^3.3.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.1"
+  }
 }
