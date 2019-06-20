@@ -2,6 +2,9 @@ import express from 'express';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import reducers from '../reducers';
 
 import App from '../components/App';
 
@@ -11,10 +14,14 @@ const server = express();
 server.use(express.static('dist'));
 
 server.get('/*', (req, res) => {
+    const store = createStore(reducers);
+
     const initialMarkup = ReactDOMServer.renderToString(
-        <StaticRouter location={req.url} context={{}}>
-            <App />
-        </StaticRouter>
+        <Provider store={store}>
+            <StaticRouter location={req.url} context={{}}>
+                <App />
+            </StaticRouter>
+        </Provider>
     );
 
     res.send(`
