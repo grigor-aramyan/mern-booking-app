@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCount, incrementCount } from '../actions/countActions';
+import { getCount, incrementCount, decrementCount, incrementCountByNum } from '../actions/countActions';
 import PropTypes from 'prop-types';
 
 class App extends Component {
@@ -10,11 +10,16 @@ class App extends Component {
 
     render() {
         const { count } = this.props.count;
-
+     
         return(
             <div>
                 Initial test 2!
                 <h2>Count from redux: {count}</h2>
+                <button onClick={() => this.props.incrementCount()}>+</button>
+                <br />
+                <button onClick={() => this.props.decrementCount()}>-</button>
+                <br />
+                <button onClick={() => this.props.incrementCountByNum(count)}>Increment by Num</button>
             </div>
         );
     }
@@ -23,6 +28,8 @@ class App extends Component {
 App.propTypes = {
     getCount: PropTypes.func.isRequired,
     incrementCount: PropTypes.func.isRequired,
+    incrementCountByNum: PropTypes.func.isRequired,
+    decrementCount: PropTypes.func.isRequired,
     count: PropTypes.object.isRequired
 }
 
@@ -30,4 +37,4 @@ const mapStateToProps = (state) => ({
     count: state.count
 });
 
-export default connect(mapStateToProps, { getCount, incrementCount })(App);
+export default connect(mapStateToProps, { getCount, incrementCount, incrementCountByNum, decrementCount })(App);
