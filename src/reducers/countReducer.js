@@ -1,13 +1,16 @@
 import { INCREMENT_COUNT, INCREMENT_COUNT_BY_NUM, DECREMENT_COUNT, GET_COUNT } from '../actions/types';
 
 const initialState = {
-    count: 11
+    count: null
 }
 
 export default function(state = initialState, action) {
     switch(action.type) {
         case GET_COUNT:
-            return state;
+            return {
+                ...state,
+                count: action.payload
+            };
         case INCREMENT_COUNT:
             return {
                 ...state,

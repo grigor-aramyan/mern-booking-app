@@ -13,6 +13,14 @@ const PORT = 4242;
 const server = express();
 server.use(express.static('dist'));
 
+server.get('/api/get_number', (req, res) => {
+    const num = Math.floor(Math.random() * 10);
+
+    res.json({
+        number: num
+    });
+});
+
 server.get('/*', (req, res) => {
     const store = createStore(reducers);
 
