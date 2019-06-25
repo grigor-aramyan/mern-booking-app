@@ -1,5 +1,9 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import config from 'config';
+import jwt from 'jsonwebtoken';
+
+import auth from '../../../middleware/auth';
 
 // Schemas
 import User from '../schemas/UserSchema';
@@ -32,13 +36,23 @@ router.post('/', function(req, res) {
                     newUser.password = hash;
                     newUser.save()
                         .then(user => {
-                            res.json({
-                                user: {
-                                    id: user._id,
-                                    name: user.name,
-                                    email: user.email
+                            jwt.sign(
+                                { id: user._id },
+                                config.get('jwtSecret'),
+                                { expiresIn: 3600 },
+                                (err, token) => {
+                                    if (err) return res.status(500).json({ msg: "Something weird in our side with auth((" });
+
+                                    res.json({
+                                        token,
+                                        user: {
+                                            id: user._id,
+                                            name: user.name,
+                                            email: user.email
+                                        }
+                                    });
                                 }
-                            });
+                            )
                         });
                 });
             });

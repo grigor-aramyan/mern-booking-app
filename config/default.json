@@ -1,0 +1,4 @@
+{
+    "dbURI": "mongodb://127.0.0.1:27017/mern_booking_app_dev",
+    "jwtSecret": "u4o0mUHxRKqUKaVK/C5xBhxh98HajWU0ivUjA40XuHb6MDBiaF6viYW9bp80zPJP"
+}
