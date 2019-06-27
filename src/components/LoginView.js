@@ -31,6 +31,7 @@ class LoginView extends Component {
         const { isAuthenticated, error, user } = this.props;
         return(
             <div>
+                <h2>Login View</h2>
                 <input 
                     type='email'
                     name='email'

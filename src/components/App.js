@@ -4,6 +4,7 @@ import { getCount, incrementCount, decrementCount, incrementCountByNum } from '.
 import { loadUser, loadLocalToken } from '../actions/authActions';
 import PropTypes from 'prop-types';
 import LoginView from './LoginView';
+import RegisterView from './RegisterView';
 
 class App extends Component {
     componentDidMount() {
@@ -26,6 +27,7 @@ class App extends Component {
                 <button onClick={() => this.props.incrementCountByNum(count)}>Increment by Num</button>
 
                 <LoginView />
+                <RegisterView />
             </div>
         );
     }
