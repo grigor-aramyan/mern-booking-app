@@ -12,6 +12,46 @@ import {
     LOAD_LOCAL_TOKEN
 } from '../actions/types';
 
+export const registerUserInit = ({ name, email, password }) => dispatch => {
+    dispatch({ type: USER_LOADING });
+
+    const body = { name, email, password };
+
+    axios.post('http://localhost:4242/api/users', body)
+        .then(res => {
+            dispatch({
+                type: REGISTER_SUCCESS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({ type: REGISTER_FAIL });
+        })
+}
+
+export const logoutInit = () => dispatch => {
+    dispatch({ type: LOGOUT_SUCCESS });
+}
+
+export const loginInit = ({ email, password }) => (dispatch, getState) => {
+    dispatch( { type: USER_LOADING });
+
+    const body = { email, password };
+
+    axios.post('http://localhost:4242/api/auth', body, tokenConfig(getState))
+        .then(res => {
+            dispatch({ 
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch({ type: LOGIN_FAIL });
+        })
+}
+
 export const loadLocalToken = () => dispatch => {
     try {
         const token = localStorage.getItem('token');

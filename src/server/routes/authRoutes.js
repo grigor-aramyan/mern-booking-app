@@ -55,7 +55,11 @@ router.post('/', function(req, res) {
 router.get('/user', auth, function(req, res) {
     User.findById(req.user.id)
         .select('-password')
-        .then(user => res.json(user));
+        .then(user => res.json({
+            id: user._id,
+            name: user.name,
+            email: user.email
+        }));
 });
 
 export default router;

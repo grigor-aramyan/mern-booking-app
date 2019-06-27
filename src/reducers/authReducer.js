@@ -56,8 +56,7 @@ export default function(state = initialState, action) {
         case LOAD_LOCAL_TOKEN:
             return {
                 ...state,
-                token: action.payload,
-                isAuthenticated: true
+                token: action.payload
             };
         default:
             return state;

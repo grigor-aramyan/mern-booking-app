@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getCount, incrementCount, decrementCount, incrementCountByNum } from '../actions/countActions';
 import { loadUser, loadLocalToken } from '../actions/authActions';
 import PropTypes from 'prop-types';
+import LoginView from './LoginView';
 
 class App extends Component {
     componentDidMount() {
@@ -23,6 +24,8 @@ class App extends Component {
                 <button onClick={() => this.props.decrementCount()}>-</button>
                 <br />
                 <button onClick={() => this.props.incrementCountByNum(count)}>Increment by Num</button>
+
+                <LoginView />
             </div>
         );
     }
