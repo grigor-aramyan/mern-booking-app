@@ -5,6 +5,7 @@ import { loadUser, loadLocalToken } from '../actions/authActions';
 import PropTypes from 'prop-types';
 import LoginView from './LoginView';
 import RegisterView from './RegisterView';
+import { Button } from 'reactstrap';
 
 class App extends Component {
     componentDidMount() {
@@ -18,6 +19,7 @@ class App extends Component {
      
         return(
             <div>
+                <Button color='danger'>Danger</Button>
                 Initial test 2!
                 <h2>Count from redux: {count}</h2>
                 <button onClick={() => this.props.incrementCount()}>+</button>
