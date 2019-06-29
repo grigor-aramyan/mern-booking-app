@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { getCount, incrementCount, decrementCount, incrementCountByNum } from '../actions/countActions';
 import { loadUser, loadLocalToken } from '../actions/authActions';
 import PropTypes from 'prop-types';
-import LoginView from './LoginView';
-import RegisterView from './RegisterView';
-import { Button } from 'reactstrap';
+import Header from './Header';
+import Footer from './Footer';
 
 class App extends Component {
     componentDidMount() {
@@ -19,17 +18,8 @@ class App extends Component {
      
         return(
             <div>
-                <Button color='danger'>Danger</Button>
-                Initial test 2!
-                <h2>Count from redux: {count}</h2>
-                <button onClick={() => this.props.incrementCount()}>+</button>
-                <br />
-                <button onClick={() => this.props.decrementCount()}>-</button>
-                <br />
-                <button onClick={() => this.props.incrementCountByNum(count)}>Increment by Num</button>
-
-                <LoginView />
-                <RegisterView />
+                <Header />
+                <Footer />
             </div>
         );
     }
