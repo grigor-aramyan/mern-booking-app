@@ -10,13 +10,57 @@ import {
     UncontrolledDropdown,
     DropdownToggle,
     DropdownMenu,
-    DropdownItem
+    DropdownItem,
+    Form,
+    FormGroup,
+    Button,
+    Input
 } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 class Header extends Component {
+    state = {
+        email: '',
+        password: '',
+        error: ''
+    }
+
+    logout = () => {
+        this.props.logoutInit();
+    }
+
+    register = () => {
+        console.log('reging');
+    }
+
+    forgetPasswordInit = () => {
+        console.log('forgetting pass');
+    }
+
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onLogin = () => {
+        const { email, password } = this.state;
+
+        if (!email || !password) {
+            this.setState({ error: 'Both fields required!' });
+        } else if (password.length < 8) {
+            this.setState({ error: 'Password should be at least 8 characters long!' });
+        } else {
+            this.props.loginInit({ email, password });
+            this.setState({ error: '' });
+        }
+    }
 
     render() {
+        const { isAuthenticated, user } = this.props;
+
+        const loginFormFontStyle = {
+            fontSize: '0.8em'
+        }
+
         return(
             <div>
                 <img src='images/header.jpg' width='100%' height='auto' />
@@ -31,19 +75,54 @@ class Header extends Component {
                             </NavItem>
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
-                                    Components
+                                    Private
                                 </DropdownToggle>
                                 <DropdownMenu>
-                                    <DropdownItem>
-                                        Item 1
+                                    <DropdownItem disabled>
+                                        Hello, { isAuthenticated ? user.name : 'guest!' }
                                     </DropdownItem>
-                                    <DropdownItem>
-                                        Item 2
-                                    </DropdownItem>
-                                    <DropdownItem divider />
-                                    <DropdownItem>
-                                        Divided Item
-                                    </DropdownItem>
+                                    { !isAuthenticated ?
+                                        <DropdownItem disabled>
+                                            <Form>
+                                                <Input 
+                                                    type='email'
+                                                    name='email'
+                                                    placeholder='Email'
+                                                    onChange={this.onChange}
+                                                    className='mb-1'
+                                                    style={loginFormFontStyle} />
+                                                <Input
+                                                    type='password'
+                                                    name='password'
+                                                    placeholder='Password'
+                                                    onChange={this.onChange}
+                                                    className='mb-2'
+                                                    style={loginFormFontStyle} />
+                                                <Button
+                                                    onClick={this.onLogin}
+                                                    style={loginFormFontStyle}>
+                                                        Login
+                                                    </Button>
+                                            </Form>
+                                        </DropdownItem> : null }
+                                    { isAuthenticated ? null :
+                                        <div>
+                                            <DropdownItem divider />
+                                            <DropdownItem disabled>
+                                                <div>
+                                                    <a onClick={this.register} style={{ fontSize: '0.8em', display: 'block', color: 'orange' }}>Register</a>
+                                                    <a onClick={this.forgetPasswordInit} style={{ fontSize: '0.8em', color: 'orange', fontStyle: 'italic' }}>Forgot password?</a>
+                                                </div>
+                                            </DropdownItem>
+                                        </div> }
+                                    { isAuthenticated ?
+                                        <div>
+                                            <DropdownItem divider />
+                                            <DropdownItem>
+                                                <a onClick={this.logout}>Sign Out</a>
+                                            </DropdownItem>
+                                        </div>
+                                    : null }
                                 </DropdownMenu>
                             </UncontrolledDropdown>
                         </Nav> 
