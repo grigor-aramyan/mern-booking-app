@@ -12,6 +12,9 @@ import {
     LOAD_LOCAL_TOKEN
 } from '../actions/types';
 
+// Statics
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+
 export const registerUserInit = ({ name, email, password }) => dispatch => {
     dispatch({ type: USER_LOADING });
 
@@ -47,7 +50,7 @@ export const loginInit = ({ email, password }) => (dispatch, getState) => {
             });
         })
         .catch(err => {
-            dispatch(returnErrors(err.response.data, err.response.status));
+            dispatch(returnErrors(err.response.data, err.response.status, LOGIN_ERROR));
             dispatch({ type: LOGIN_FAIL });
         })
 }

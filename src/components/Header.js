@@ -12,11 +12,13 @@ import {
     DropdownMenu,
     DropdownItem,
     Form,
-    FormGroup,
+    Container,
     Button,
     Input
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+
+import { LOGIN_ERROR } from '../actions/authActions';
 
 class Header extends Component {
     state = {
@@ -55,7 +57,7 @@ class Header extends Component {
     }
 
     render() {
-        const { isAuthenticated, user } = this.props;
+        const { isAuthenticated, user, error } = this.props;
 
         const loginFormFontStyle = {
             fontSize: '0.8em'
@@ -82,7 +84,7 @@ class Header extends Component {
                                         Hello, { isAuthenticated ? user.name : 'guest!' }
                                     </DropdownItem>
                                     { !isAuthenticated ?
-                                        <DropdownItem disabled>
+                                        <Container>
                                             <Form>
                                                 <Input 
                                                     type='email'
@@ -98,22 +100,27 @@ class Header extends Component {
                                                     onChange={this.onChange}
                                                     className='mb-2'
                                                     style={loginFormFontStyle} />
+                                                { this.state.error === '' ? null :
+                                                    <p style={{color: 'red', fontSize: '0.8em'}}>{this.state.error}</p>
+                                                }
+                                                { ((error.id === LOGIN_ERROR) && (error.msg !== null)) ?
+                                                    <p style={{color: 'red', fontSize: '0.8em'}}>{error.msg.msg}</p>
+                                                    : null
+                                                }
                                                 <Button
                                                     onClick={this.onLogin}
                                                     style={loginFormFontStyle}>
                                                         Login
                                                     </Button>
                                             </Form>
-                                        </DropdownItem> : null }
+                                        </Container> : null }
                                     { isAuthenticated ? null :
                                         <div>
                                             <DropdownItem divider />
-                                            <DropdownItem disabled>
-                                                <div>
-                                                    <a onClick={this.register} style={{ fontSize: '0.8em', display: 'block', color: 'orange' }}>Register</a>
-                                                    <a onClick={this.forgetPasswordInit} style={{ fontSize: '0.8em', color: 'orange', fontStyle: 'italic' }}>Forgot password?</a>
-                                                </div>
-                                            </DropdownItem>
+                                            <Container>
+                                                <a href='#' onClick={this.register} style={{ fontSize: '0.8em', display: 'block', color: 'orange' }}>Register</a>
+                                                <a href='#' onClick={this.forgetPasswordInit} style={{ fontSize: '0.8em', color: 'orange', fontStyle: 'italic' }}>Forgot password?</a>
+                                            </Container>
                                         </div> }
                                     { isAuthenticated ?
                                         <div>
