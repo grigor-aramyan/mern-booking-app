@@ -79,7 +79,7 @@ class Header extends Component {
                                 <DropdownToggle nav caret>
                                     Private
                                 </DropdownToggle>
-                                <DropdownMenu>
+                                <DropdownMenu right>
                                     <DropdownItem disabled>
                                         Hello, { isAuthenticated ? user.name : 'guest!' }
                                     </DropdownItem>
